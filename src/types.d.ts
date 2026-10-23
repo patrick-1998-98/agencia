@@ -36,6 +36,9 @@ export interface Post {
 
   /** Preguntas frecuentes del post: se muestran al final y generan FAQPage. */
   faqs?: Array<{ question: string; answer: string }>;
+
+  /** URLs de las fuentes citadas (JSON-LD `citation`). */
+  sources?: Array<string>;
 }
 
 export interface Taxonomy {

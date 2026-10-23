@@ -78,6 +78,7 @@ const articleSchema = {
   ...(imageUrl ? { image: imageUrl.startsWith('http') ? imageUrl : new URL(imageUrl, Astro.site).toString() } : {}),
   ...(post.category ? { articleSection: post.category.title } : {}),
   ...(post.tags?.length ? { keywords: post.tags.map((tag) => tag.title).join(', ') } : {}),
+  ...(post.sources?.length ? { citation: post.sources } : {}),
   mainEntityOfPage: String(url),
 };
 

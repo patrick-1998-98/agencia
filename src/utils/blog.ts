@@ -56,6 +56,7 @@ const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> =
     author,
     draft = false,
     faqs = [],
+    sources = [],
     metadata = {},
   } = data;
 
@@ -95,6 +96,7 @@ const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> =
     draft: draft,
 
     faqs,
+    sources,
 
     metadata,
 

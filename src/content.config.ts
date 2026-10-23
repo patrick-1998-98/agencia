@@ -67,6 +67,9 @@ const postCollection = defineCollection({
     /** Preguntas frecuentes: se muestran al final del post y generan JSON-LD FAQPage. */
     faqs: z.array(z.object({ question: z.string(), answer: z.string() })).optional(),
 
+    /** URLs de las fuentes citadas: se publican como `citation` en el JSON-LD Article. */
+    sources: z.array(z.url()).optional(),
+
     metadata: metadataDefinition(),
   }),
 });
