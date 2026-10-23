@@ -1,0 +1,14 @@
+---
+// Emits one or more Schema.org objects as JSON-LD. Use it through the layout's
+// `head` slot: <StructuredData slot="head" schema={schema} />. Layout.astro adds
+// Organization on every page; blog posts add Article, BreadcrumbList and, when
+// the post has `faqs` in its frontmatter, FAQPage.
+
+export interface Props {
+  schema: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const { schema } = Astro.props;
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />

@@ -1,0 +1,74 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Configuración central del sitio.
+# La marca (site.name) y el dominio (site.site) se cambian SOLO aquí: el resto
+# del sitio (títulos, JSON-LD, llms.txt, robots.txt, RSS, logo…) los lee de este
+# archivo a través de `astrowind:config` y de `src/constants.ts`.
+# ─────────────────────────────────────────────────────────────────────────────
+site:
+  name: Agencia IA Tyler
+  site: 'https://www.example.com' # TODO: dominio definitivo
+  base: '/'
+  trailingSlash: false
+
+  googleSiteVerificationId: null
+
+# SEO por defecto. El título por defecto y la plantilla "%s — <marca>" se
+# generan a partir de site.name (ver vendor/integration/utils/configBuilder.ts).
+metadata:
+  description: 'Implantamos inteligencia artificial y automatización en pymes españolas: procesos más rápidos, menos tareas repetitivas y ayudas públicas bien aprovechadas.'
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    images:
+      - url: '~/assets/images/default.png'
+        width: 1200
+        height: 628
+    type: website
+  twitter:
+    cardType: summary_large_image
+
+i18n:
+  language: es
+  locale: es-ES
+  textDirection: ltr
+
+apps:
+  blog:
+    isEnabled: true
+    postsPerPage: 8
+
+    post:
+      isEnabled: true
+      permalink: '/blog/%slug%'
+      robots:
+        index: true
+
+    list:
+      isEnabled: true
+      pathname: 'blog'
+      robots:
+        index: true
+
+    category:
+      isEnabled: false
+      pathname: 'categoria'
+      robots:
+        index: false
+
+    tag:
+      isEnabled: false
+      pathname: 'etiqueta'
+      robots:
+        index: false
+
+    isRelatedPostsEnabled: true
+    relatedPostsCount: 3
+
+analytics:
+  vendors:
+    googleAnalytics:
+      id: null # o "G-XXXXXXXXXX"
+
+ui:
+  theme: 'system' # Valores: "system" | "light" | "dark" | "light:only" | "dark:only"

@@ -1,0 +1,86 @@
+---
+// Formulario de contacto que envía a Formspree. El endpoint se construye con
+// PUBLIC_FORMSPREE_ID (ver src/constants.ts). Si la variable no está definida,
+// el formulario se pinta desactivado con un aviso y el build sigue funcionando.
+import Button from '~/components/ui/Button.astro';
+import { FORMSPREE_ENDPOINT, BRAND_NAME } from '~/constants';
+
+const inputClass =
+  'py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900';
+const labelClass = 'block text-sm font-medium mb-1';
+const enabled = Boolean(FORMSPREE_ENDPOINT);
+---
+
+<div
+  class="flex flex-col max-w-xl mx-auto rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900 shadow p-4 sm:p-6 lg:p-8 w-full"
+>
+  {
+    !enabled && (
+      <p
+        class="mb-6 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-200"
+        role="status"
+      >
+        El formulario todavía no está activo. Vuelve a intentarlo en unos días.
+      </p>
+    )
+  }
+  <form action={FORMSPREE_ENDPOINT ?? undefined} method="POST" data-contact-form>
+    <fieldset disabled={!enabled} class="disabled:opacity-60">
+      <input type="hidden" name="_subject" value={`Nuevo contacto desde la web de ${BRAND_NAME}`} />
+      <input type="hidden" name="_language" value="es" />
+      <div class="mb-6">
+        <label for="nombre" class={labelClass}>Nombre</label>
+        <input id="nombre" name="nombre" type="text" autocomplete="name" required class={inputClass} />
+      </div>
+      <div class="mb-6">
+        <label for="email" class={labelClass}>Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required class={inputClass} />
+      </div>
+      <div class="mb-6">
+        <label for="empresa" class={labelClass}>Empresa</label>
+        <input id="empresa" name="empresa" type="text" autocomplete="organization" class={inputClass} />
+      </div>
+      <div>
+        <label for="mensaje" class={labelClass}>Mensaje</label>
+        <textarea id="mensaje" name="mensaje" rows="5" required class={inputClass}></textarea>
+      </div>
+      <!-- Campo trampa contra spam (Formspree lo ignora si está vacío) -->
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+      <div class="mt-10 grid">
+        <Button variant="primary" type="submit">Enviar mensaje</Button>
+      </div>
+    </fieldset>
+    <p class="mt-3 text-center text-sm text-gray-600 dark:text-gray-400" data-contact-status aria-live="polite">
+      Usaremos tus datos solo para responder a tu mensaje.
+    </p>
+  </form>
+</div>
+
+<script>
+  // Envío sin recargar la página; si falla el JS, el formulario sigue enviando por POST normal.
+  const setup = () => {
+    document.querySelectorAll<HTMLFormElement>('form[data-contact-form]').forEach((form) => {
+      if (!form.action || form.dataset.ready) return;
+      form.dataset.ready = 'true';
+      const status = form.querySelector<HTMLElement>('[data-contact-status]');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (status) status.textContent = 'Enviando…';
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { Accept: 'application/json' },
+          });
+          if (!response.ok) throw new Error(String(response.status));
+          form.reset();
+          if (status) status.textContent = 'Mensaje enviado. Te responderemos lo antes posible.';
+        } catch {
+          if (status) status.textContent = 'No se ha podido enviar el mensaje. Inténtalo de nuevo más tarde.';
+        }
+      });
+    });
+  };
+  setup();
+  document.addEventListener('astro:page-load', setup);
+</script>

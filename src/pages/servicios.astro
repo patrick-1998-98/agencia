@@ -1,0 +1,54 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import { BRAND_NAME } from '~/constants';
+import { getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Servicios',
+  description: `Servicios de ${BRAND_NAME}: diagnóstico de IA, automatización de procesos y formación para que tu pyme aproveche la inteligencia artificial.`,
+};
+---
+
+<Layout metadata={metadata}>
+  <HeroText
+    tagline="Servicios"
+    title="IA aplicada a los procesos de tu pyme"
+    subtitle="Empezamos por lo que más tiempo te quita y avanzamos por fases, para que cada paso tenga un resultado visible."
+  />
+
+  {/* TODO: servicios provisionales hasta decidir el servicio principal. */}
+  <Features2
+    columns={3}
+    items={[
+      {
+        title: 'Diagnóstico de IA',
+        description:
+          'Analizamos tus procesos, tus herramientas y tus datos, y te entregamos una hoja de ruta priorizada con lo que conviene automatizar primero.',
+        icon: 'tabler:search',
+      },
+      {
+        title: 'Automatización de procesos',
+        description:
+          'Diseñamos e implantamos automatizaciones con IA para tareas repetitivas: gestión de documentos, correo, introducción de datos o respuestas a clientes.',
+        icon: 'tabler:settings-automation',
+      },
+      {
+        title: 'Formación y acompañamiento',
+        description:
+          'Formamos a tu equipo en el uso de las herramientas implantadas y hacemos seguimiento para ajustar lo que haga falta.',
+        icon: 'tabler:school',
+      },
+    ]}
+  />
+
+  <CallToAction
+    actions={[{ variant: 'primary', text: 'Solicitar información', href: getPermalink('/contacto') }]}
+  >
+    <Fragment slot="title">¿No sabes por dónde empezar?</Fragment>
+    <Fragment slot="subtitle">Cuéntanos tu caso y te diremos qué servicio encaja mejor con tu empresa.</Fragment>
+  </CallToAction>
+</Layout>

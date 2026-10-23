@@ -1,0 +1,50 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import { BRAND_NAME } from '~/constants';
+import { getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Sobre nosotros',
+  description: `${BRAND_NAME} es una agencia especializada en implantar inteligencia artificial y automatización en pymes españolas, con un enfoque práctico y medible.`,
+};
+---
+
+<Layout metadata={metadata}>
+  <HeroText
+    tagline="Sobre nosotros"
+    title={`Somos ${BRAND_NAME}`}
+    subtitle="Ayudamos a pequeñas y medianas empresas a usar la inteligencia artificial en su día a día, con proyectos a su medida y explicando cada paso."
+  />
+
+  {/* TODO: añadir historia, equipo y datos reales de la agencia. */}
+  <Features2
+    title="Cómo entendemos la IA en una pyme"
+    columns={3}
+    items={[
+      {
+        title: 'Utilidad antes que moda',
+        description: 'Solo proponemos IA donde ahorra tiempo o mejora un resultado concreto de tu negocio.',
+        icon: 'tabler:target',
+      },
+      {
+        title: 'Claridad',
+        description: 'Te explicamos qué hace cada herramienta, cuánto cuesta y qué puedes esperar de ella.',
+        icon: 'tabler:bulb',
+      },
+      {
+        title: 'Tu equipo, en el centro',
+        description: 'Las soluciones se diseñan con las personas que las van a usar y se acompañan de formación.',
+        icon: 'tabler:users',
+      },
+    ]}
+  />
+
+  <CallToAction actions={[{ variant: 'primary', text: 'Contactar', href: getPermalink('/contacto') }]}>
+    <Fragment slot="title">¿Te encaja nuestra forma de trabajar?</Fragment>
+    <Fragment slot="subtitle">Escríbenos y vemos juntos por dónde empezar.</Fragment>
+  </CallToAction>
+</Layout>

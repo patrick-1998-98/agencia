@@ -1,0 +1,19 @@
+# Rastreadores de IA permitidos de forma explícita
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Resto de rastreadores
+User-agent: *
+Allow: /
+
+# La línea "Sitemap:" se añade en el build con el dominio de src/config.yaml
+# (ver vendor/integration/index.ts).

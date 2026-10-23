@@ -1,0 +1,36 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import ContactForm from '~/components/agency/ContactForm.astro';
+
+import { BRAND_NAME, CONTACT_EMAIL } from '~/constants';
+
+const metadata = {
+  title: 'Contacto',
+  description: `Cuéntanos qué procesos de tu pyme quieres mejorar con inteligencia artificial y automatización. ${BRAND_NAME} te responde con una primera valoración.`,
+};
+---
+
+<Layout metadata={metadata}>
+  <HeroText
+    tagline="Contacto"
+    title="Hablemos de tu empresa"
+    subtitle="Explícanos brevemente a qué se dedica tu empresa y qué te gustaría mejorar. Te responderemos con una primera valoración, sin compromiso."
+  />
+
+  <WidgetWrapper id="formulario" containerClass="max-w-7xl mx-auto">
+    <ContactForm />
+    {
+      CONTACT_EMAIL && (
+        <p class="mt-8 text-center text-muted">
+          También puedes escribirnos a{' '}
+          <a class="underline" href={`mailto:${CONTACT_EMAIL}`}>
+            {CONTACT_EMAIL}
+          </a>
+          .
+        </p>
+      )
+    }
+  </WidgetWrapper>
+</Layout>

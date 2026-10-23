@@ -1,0 +1,127 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import Features from '~/components/widgets/Features.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+
+import { BRAND_NAME, SITE_LOCALE, absoluteUrl } from '~/constants';
+import { getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: `${BRAND_NAME} — Inteligencia artificial y automatización para pymes`,
+  ignoreTitleTemplate: true,
+  description:
+    'Ayudamos a pymes españolas a implantar inteligencia artificial y automatización con proyectos concretos, medibles y adaptados a su tamaño.',
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': absoluteUrl('/#website'),
+  name: BRAND_NAME,
+  url: absoluteUrl('/'),
+  inLanguage: SITE_LOCALE,
+  publisher: { '@id': absoluteUrl('/#organization') },
+};
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={websiteSchema} />
+
+  <Hero
+    tagline="IA y automatización para pymes"
+    actions={[
+      { variant: 'primary', text: 'Cuéntanos tu caso', href: getPermalink('/contacto'), icon: 'tabler:arrow-right' },
+      { text: 'Ver servicios', href: getPermalink('/servicios') },
+    ]}
+  >
+    <Fragment slot="title">
+      Implantamos <span class="text-accent dark:text-white">inteligencia artificial</span> y automatización en tu pyme
+    </Fragment>
+    <Fragment slot="subtitle">
+      Detectamos qué tareas de tu empresa puede asumir la IA, lo ponemos en marcha y formamos a tu equipo para que lo
+      use desde el primer día. Sin jerga y con objetivos medibles.
+    </Fragment>
+  </Hero>
+
+  {
+    /*
+      TODO: servicios provisionales. Aún no está decidido el servicio principal;
+      sustituir títulos, textos e iconos cuando se defina la oferta.
+    */
+  }
+  <Features
+    id="servicios"
+    tagline="Qué hacemos"
+    title="Tres formas de empezar con la IA"
+    subtitle="Proyectos acotados, pensados para el tamaño y el ritmo de una pyme."
+    columns={3}
+    items={[
+      {
+        // TODO: servicio 1 (provisional)
+        title: 'Diagnóstico de IA',
+        description:
+          'Revisamos tus procesos y te decimos dónde la IA y la automatización ahorran tiempo de verdad, y dónde no compensa.',
+        icon: 'tabler:search',
+      },
+      {
+        // TODO: servicio 2 (provisional)
+        title: 'Automatización de procesos',
+        description:
+          'Conectamos tus herramientas y automatizamos tareas repetitivas: documentos, correos, datos y atención al cliente.',
+        icon: 'tabler:settings-automation',
+      },
+      {
+        // TODO: servicio 3 (provisional)
+        title: 'Formación y acompañamiento',
+        description:
+          'Formamos a tu equipo y seguimos a tu lado tras la puesta en marcha para que la solución se use y mejore.',
+        icon: 'tabler:school',
+      },
+    ]}
+  />
+
+  <Steps
+    title="Cómo trabajamos"
+    items={[
+      {
+        title: 'Paso 1: <span class="font-medium">Escuchamos</span>',
+        description: 'Una primera conversación para entender tu negocio, tus herramientas y qué te quita más tiempo.',
+        icon: 'tabler:message-circle',
+      },
+      {
+        title: 'Paso 2: <span class="font-medium">Proponemos</span>',
+        description: 'Una propuesta concreta, con alcance, plazos y coste cerrados antes de empezar.',
+        icon: 'tabler:file-description',
+      },
+      {
+        title: 'Paso 3: <span class="font-medium">Implantamos</span>',
+        description: 'Ponemos la solución en marcha, formamos a tu equipo y medimos el resultado.',
+        icon: 'tabler:rocket',
+      },
+      {
+        title: 'Listo',
+        icon: 'tabler:check',
+      },
+    ]}
+  />
+
+  <BlogLatestPosts
+    title="Ayudas e IA para pymes, explicadas"
+    information="Lo que hay publicado sobre el bono IA y otras ayudas, separado de lo que todavía está pendiente de confirmar."
+    count={3}
+  />
+
+  <CallToAction
+    actions={[{ variant: 'primary', text: 'Contactar', href: getPermalink('/contacto'), icon: 'tabler:mail' }]}
+  >
+    <Fragment slot="title">¿Hablamos de tu empresa?</Fragment>
+    <Fragment slot="subtitle">
+      Cuéntanos qué te gustaría mejorar y te respondemos con una primera valoración, sin compromiso.
+    </Fragment>
+  </CallToAction>
+</Layout>
